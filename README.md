@@ -60,7 +60,13 @@ demand from wallets and may slip to a later date. Refer to [LDK-Roadmap] for mor
 
 See the [VSS API contract] for details.
 
-### Implementation
+###  VSS NODE.js API Client
+
+The VSS API Client is a Node.js utility designed to interact with a Versioned Storage Service (VSS). It provides functionality to securely store, retrieve, and manage encrypted data using a cloud-hosted VSS server.
+
+See the [VSS NODE.js API Client] for details.
+
+### Implementationd
 
 Currently, VSS-server has a Java-based implementation and is ready to use. Support for a Rust-based VSS-server is a work
 in progress.
@@ -112,6 +118,8 @@ the [GitHub repository](https://github.com/lightningdevkit/vss-server/issues). F
 development of VSS, you can reach out to us in the [LDK Discord] in the `#vss` channel.
 
 [VSS API contract]: https://github.com/lightningdevkit/vss-server/blob/main/proto/vss.proto
+
+[VSS NODE.js API Client]: https://github.com/RGB-OS/vss-server/tree/main/nodejs-api-client
 
 [VSS-rust-client]: https://github.com/lightningdevkit/vss-rust-client
 
