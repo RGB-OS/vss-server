@@ -14,4 +14,5 @@ app/.classpath
 app/.project
 app/.settings
 # Node.js specific files
-node_modules/
+nodejs-api-client/node_modules
+nodejs-api-client/package-lock.json
