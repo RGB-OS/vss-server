@@ -24,19 +24,13 @@ class JwtAuthorizerTest {
 			"hwIDAQAB\n" +
 			"-----END PUBLIC KEY-----";
 
-	private static final String VALID_AUTH_HEADER = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9." +
-			"eyJzdWIiOiJ2YWxpZF91c2VyX2lkIiwiaWF0IjoxNzI5NjM0MjYwLCJuYmYiOjE3Mjk2MzQyNjAsImV4cCI6MzA1" +
-			"NTY4OTE1OTQwMzc0NTl9.xBL5BYiv8B-ZN1bCuljuJ7dZeOPocVPPVwkeK_GH4lD5iQqD08zi93WuXw1c6NWWCK4" +
-			"jn4ZssYrzSLLL5q3tAYbLKuhQ2-2A-e1HTasfvSnx_jCBUNApbIv3rM19M3rhRVRSxT2s2jI7dJFlM6E_bGMfj9w" +
-			"uoZiT_amjIIPQJiRkDKcO2sXnD6eU_yx8EIhH_PemSX3kp9Sx9eTYqGbyCtLrs9jK7nr6GQ_1jc6ie03Uh2dsIzW" +
-			"sZqGHh2n_WmdyURWEfwsMYFpepRLzm77dP9q78RgA8eDLZSLNW9ssJMYWY9DRkOZBFFuf4uy-uqC9MWS64DkJSAo" +
-			"nH8Zof_tUiQ";
+	private static final String VALID_AUTH_HEADER = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MTViODVlMC1hMDcxLTcwZmQtNDRkZi0yMmI5MTFlYWEwMzQiLCJqdGkiOiJhMzM3Nzc0Ni04ZmQ4LTRiMDAtODJlNy1mMTMxM2RiN2ZjM2YiLCJpYXQiOjE3MjE5ODIzNTB9.QSt3Lkfi987Cf6Ob0c2RYa83KLFGtTlwdCgEStwYDJ22pEDZMJ3K4rlk7DsLKYmztIY1XbJHQ2qcYNHIpX27Ba8FspcBKCY_hzUKz9ZGWvkY2mOGrU7K4s56zg79FKUYWQYd_ccy01uEIS0JbVQgcDKFjchiDYmiIxo4CQAg9bgfqYhTXRhHVrzSLpYovqWw943JkY6jZxQp04cTPfJ_0I6fqyTbaEC47wFFycIgpxbtIE1xl1cOgjKU1EoHtP3T6ulJQ0TxV7k7N3VbYCTxJRqJ7Xkr57nZWGzH2NzB2uDn4AlGJWEYNh7PWlF8oPLbNjBo8oHux4QHt-ZdgSktZQ";
 
-	private static final String VALID_USER_ID = "valid_user_id";
+	private static final String VALID_USER_ID = "415b85e0-a071-70fd-44df-22b911eaa034";
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		jwtAuthorizer = new JwtAuthorizer(PUBLIC_KEY);
+		jwtAuthorizer = new JwtAuthorizer();
 		headers = mock(HttpHeaders.class);
 	}
 

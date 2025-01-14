@@ -16,6 +16,7 @@ import org.vss.KVStore;
 import org.vss.auth.Authorizer;
 import org.vss.auth.NoopAuthorizer;
 import org.vss.impl.postgres.PostgresBackendImpl;
+import org.vss.auth.JwtAuthorizer;
 
 public class BaseModule extends AbstractModule {
 
@@ -24,8 +25,21 @@ public class BaseModule extends AbstractModule {
     // Provide PostgresBackend as default implementation for KVStore.
     bind(KVStore.class).to(PostgresBackendImpl.class).in(Singleton.class);
 
+    try{
     // Default to Noop Authorizer.
-    bind(Authorizer.class).to(NoopAuthorizer.class).in(Singleton.class);
+    String pemFormatRSAPublicKey = """
+    -----BEGIN PUBLIC KEY-----
+    public-key-placeholder-not-to-be-used
+    just to not throw exception during initialization
+    -----END PUBLIC KEY-----
+    """;
+    JwtAuthorizer jwtAuthorizer = new JwtAuthorizer();
+    System.out.println("INIT JwtAuthorizer");
+    // bind(Authorizer.class).to(NoopAuthorizer.class).in(Singleton.class);
+    bind(Authorizer.class).toInstance(jwtAuthorizer);
+    }catch(Exception e){
+      throw new RuntimeException("Failed to initialize JwtAuthorizer", e);
+    }
   }
 
   @Provides
@@ -57,6 +71,8 @@ class HikariCPDataSource {
       applicationProperties.load(input);
 
       config.setJdbcUrl(getEnvOrConfigProperty("vss.jdbc.url", applicationProperties));
+      String jdbcUrl = getEnvOrConfigProperty("vss.jdbc.url", applicationProperties);
+      System.out.println("JDBC URL: " + jdbcUrl);
       config.setUsername(getEnvOrConfigProperty("vss.jdbc.username", applicationProperties));
       config.setPassword(getEnvOrConfigProperty("vss.jdbc.password", applicationProperties));
 

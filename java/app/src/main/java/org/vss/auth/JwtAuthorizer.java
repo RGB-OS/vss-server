@@ -14,11 +14,22 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+
+import java.io.StringReader;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+
+import java.io.IOException;
+
 // A JWT (https://datatracker.ietf.org/doc/html/rfc7519) based authorizer,
 public class JwtAuthorizer implements Authorizer {
 
-	private final PublicKey publicKey;
-	private final JWTVerifier verifier;
 
 	private static final String BEARER_PREFIX = "Bearer ";
 	private static final int MAX_USER_TOKEN_LENGTH = 120;
@@ -28,12 +39,6 @@ public class JwtAuthorizer implements Authorizer {
 	// Example:
 	// * To generate private key, run : `openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048`
 	// * To generate public key, run: `openssl rsa -pubout -in private_key.pem -out public_key.pem`
-	public JwtAuthorizer(String pemFormatRSAPublicKey) throws Exception {
-		this.publicKey = loadPublicKey(pemFormatRSAPublicKey);
-
-		Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) publicKey, null);
-		this.verifier = JWT.require(algorithm).build();
-	}
 
 	@Override
 	public AuthResponse verify(HttpHeaders headers) throws AuthException {
@@ -47,18 +52,40 @@ public class JwtAuthorizer implements Authorizer {
 			// Extract token by excluding BEARER_PREFIX.
 			String token = authorizationHeader.substring(BEARER_PREFIX.length());
 
-			DecodedJWT jwt = verifier.verify(token);
+			// Verify the token.
+   			HttpClient client = HttpClient.newHttpClient();
+        	HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://cloud-api.thunderstack.org/api/verify"))
+            .header("Authorization", "Bearer " + token) // Pass the token in the Authorization header
+            .GET()
+            .build();
 
-			// Extract the user identity from the token.
-			String userToken = jwt.getSubject();
-
-			if (userToken == null || userToken.isBlank()) {
-				throw new AuthException("Invalid JWT token.");
-			} else if (userToken.length() > MAX_USER_TOKEN_LENGTH) {
-				throw new AuthException("UserToken is too long");
+			// Send the request
+			HttpResponse<String> response;
+			try {
+				response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			} catch (IOException | InterruptedException e) {
+				throw new AuthException("Error while sending HTTP request: " + e.getMessage());
+			}
+			// Check the response status code
+			if (response.statusCode() != 200) {
+				throw new AuthException("Failed to verify token ");
 			}
 
-			return new AuthResponse(userToken);
+			String responseBody = response.body();
+        	try (JsonReader jsonReader = Json.createReader(new StringReader(responseBody))) {
+				JsonObject jsonObject = jsonReader.readObject();
+
+				// Extract the "sub" field
+				String userId = jsonObject.getString("sub", null);
+
+				if (userId == null || userId.isBlank()) {
+					throw new AuthException("Invalid token response from verification API.");
+				}
+
+				// Return the AuthResponse with the userToken
+				return new AuthResponse(userId);
+        	}			
 
 		} catch (JWTVerificationException e) {
 			throw new AuthException("Invalid JWT token.");

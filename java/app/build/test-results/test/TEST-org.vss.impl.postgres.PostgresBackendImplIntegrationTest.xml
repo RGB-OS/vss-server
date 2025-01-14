@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-01-13T10:24:55" hostname="MacBook-Pro.local" time="19.971">
+  <properties/>
+  <testcase name="putShouldSucceedWhenNoGlobalVersionIsGiven()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="1.513"/>
+  <testcase name="listShouldReturnZeroGlobalVersionWhenGlobalVersioningNotEnabled()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="1.423"/>
+  <testcase name="listShouldLimitMaxPageSize()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="6.585"/>
+  <testcase name="listShouldReturnPaginatedResponse()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="1.393"/>
+  <testcase name="putShouldFailWhenGlobalVersionMismatched()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.776"/>
+  <testcase name="deleteShouldBeIdempotent()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.749"/>
+  <testcase name="putAndDeleteShouldSucceedAsAtomicTransaction()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.764"/>
+  <testcase name="deleteShouldSucceedWhenItemDoesNotExist()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.726"/>
+  <testcase name="getShouldReturnCorrectValueWhenKeyExists()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.763"/>
+  <testcase name="getShouldThrowNoSuchKeyExceptionWhenKeyDoesNotExist()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.74"/>
+  <testcase name="deleteShouldSucceedWhenItemExists()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.819"/>
+  <testcase name="putShouldSucceedWhenMultiObjectPutOperation()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.751"/>
+  <testcase name="putMultiObjectShouldFailWhenSingleKeyVersionMismatched()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.745"/>
+  <testcase name="putShouldSucceedWhenSingleObjectPutOperation()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.775"/>
+  <testcase name="listShouldHonourPageSizeAndKeyPrefixIfProvided()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.731"/>
+  <testcase name="putShouldFailWhenKeyVersionMismatched()" classname="org.vss.impl.postgres.PostgresBackendImplIntegrationTest" time="0.708"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

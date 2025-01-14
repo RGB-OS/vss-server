@@ -16,12 +16,12 @@ import org.vss.postgres.tables.records.VssDbRecord;
  * A class modelling foreign key relationships and constraints of tables in
  * public.
  */
-@SuppressWarnings({"all", "unchecked", "rawtypes"})
+@SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Keys {
 
-	// -------------------------------------------------------------------------
-	// UNIQUE and PRIMARY KEY definitions
-	// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // UNIQUE and PRIMARY KEY definitions
+    // -------------------------------------------------------------------------
 
-	public static final UniqueKey<VssDbRecord> VSS_DB_PKEY = Internal.createUniqueKey(VssDb.VSS_DB, DSL.name("vss_db_pkey"), new TableField[]{VssDb.VSS_DB.USER_TOKEN, VssDb.VSS_DB.STORE_ID, VssDb.VSS_DB.KEY}, true);
+    public static final UniqueKey<VssDbRecord> VSS_DB_PKEY = Internal.createUniqueKey(VssDb.VSS_DB, DSL.name("vss_db_pkey"), new TableField[] { VssDb.VSS_DB.USER_TOKEN, VssDb.VSS_DB.STORE_ID, VssDb.VSS_DB.KEY }, true);
 }

@@ -10,11 +10,11 @@ import org.vss.postgres.tables.VssDb;
 /**
  * Convenience access to all tables in public.
  */
-@SuppressWarnings({"all", "unchecked", "rawtypes"})
+@SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
-	/**
-	 * The table <code>public.vss_db</code>.
-	 */
-	public static final VssDb VSS_DB = VssDb.VSS_DB;
+    /**
+     * The table <code>public.vss_db</code>.
+     */
+    public static final VssDb VSS_DB = VssDb.VSS_DB;
 }

@@ -6,7 +6,7 @@ COPY app/build/libs/vss-1.0.war /usr/local/tomcat/webapps/vss.war
 
 ENV vss.jdbc.url="jdbc:postgresql://postgres:5432/postgres"
 ENV vss.jdbc.username=postgres
-ENV vss.jdbc.password=YOU_MUST_CHANGE_THIS_PASSWORD
+ENV vss.jdbc.password=12345678
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
