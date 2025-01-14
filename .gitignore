@@ -13,4 +13,5 @@ app/bin/*
 app/.classpath
 app/.project
 app/.settings
-
+# Node.js specific files
+node_modules/
