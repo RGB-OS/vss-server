@@ -10,7 +10,7 @@ const { token, vssServerBaseUrl } = require('./config');
  * @param {string} storeId - The store ID for the operation.
  * @param {string} key - The key under which the file is stored.
  */
-async function putObjects(filePath, storeId, key) {
+async function putObjects(filePath, storeId, key, version = 0) {
     const root = await loadProto();
     const PutObjectRequest = root.lookupType('PutObjectRequest');
     const KeyValue = root.lookupType('KeyValue');
@@ -36,12 +36,12 @@ async function putObjects(filePath, storeId, key) {
     const keyValue = KeyValue.create({
         key: key,
         value: Storable.encode(storable).finish(),
-        version: 0
+        version: version
     });
 
     const message = PutObjectRequest.create({
         storeId: storeId,
-        globalVersion: 0,
+        globalVersion: version,
         transactionItems: [keyValue]
     });
 
@@ -93,11 +93,11 @@ async function getObject(storeId, key) {
  * List key versions for a given store.
  * @param {string} storeId - The store ID for the operation.
  */
-async function listKeyVersions(storeId) {
+async function listKeyVersions(storeId, key = null) {
     const root = await loadProto();
     const ListKeyVersionsRequest = root.lookupType('ListKeyVersionsRequest');
 
-    const request = ListKeyVersionsRequest.create({ storeId });
+    const request = ListKeyVersionsRequest.create({ storeId, key });
     const binaryRequest = ListKeyVersionsRequest.encode(request).finish();
 
     const response = await axios.post(
