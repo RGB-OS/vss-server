@@ -2,9 +2,9 @@ const { putObjects, getObject, listKeyVersions } = require('./client');
 
 async function main() {
     try {
-        
-        const storeId = 'store_ex_4';
-        const key = 'k_ex_4';
+        const timestamp = Date.now();
+        const storeId = `store_ex_${timestamp}`;
+        const key = `k_ex_${timestamp}`;
 
         console.log('Saving file...');
         const response = await putObjects('example.txt', storeId, key);
